@@ -9,19 +9,7 @@ var Spotify = require('node-spotify-api');
 var inquirer = require("inquirer");
 
 
-
-
-//Per the Twitter module docs the snippet 
-//below uses enviormental variables to store  the twitter keys 
-//this approach is preferred when developers want to keep some information private 
-var client = new Twitter({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-  });
-
-  //here i will create  prompt that asks which of the commands ou would like to run
+//here i will create  prompt that asks which of the commands ou would like to run
   inquirer.prompt([
     // Here we give the user a list to choose from.
     {
@@ -47,9 +35,52 @@ var client = new Twitter({
 
         case 'my-tweets':
             console.log('this section contains the code for the twitter selection');
+            //Per the Twitter module docs the snippet 
+            //below uses enviormental variables to store  the twitter keys 
+            //this approach is preferred when developers want to keep some information private 
+            inquirer.prompt([ 
+                { type: "input",
+                message: "What is your twitter handle (without the '@')?",
+                name: "username"
+                 },
+                 { type: "confirm",
+                message: "Are you sure:",
+                name: "confirm",
+                default: true
+             }]).then(function(result){
+                console.log("the then part of the request works")
+
+                console.log("here is the username entered: " + JSON.stringify(result.username))
+                 
+                var client = new Twitter({
+                consumer_key: process.env.TWITTER_CONSUMER_KEY,
+                consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+                access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+                access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+                })
+               
+                
+                // client.get('search/tweets', {q: 'cats'}, function(error, tweets, response) {
+                // console.log(tweets);});
+            })
+            //now that the 'client'  has been declared into existence 
+            //we can  use the template below to 'get' the desired tweets
+            //template: client.get(path, params, callback);
+            //the parameters do the following
+            //path sets the path to 'search/tweets'
+            //the {q: 'cats'} states that we are querying the term 'cats'
+            //rgw last paramater become an anon functions that recieves the 
+            //error msg, 15 tweets & reponse info
+            //here i can customise the search query term to what evs i like
+            //perhaps change this to a prompt asking what to search for?
+           
+             
             break;
+        
         case 'spotify-this-song':
             console.log('this section contains the code for the spotify selection');
+
+
             break;
         case 'movie-this':
             console.log('this section contains the code for the omdb selection');
@@ -67,25 +98,6 @@ var client = new Twitter({
   });
 
 
-
-
-//var spotify = new Spotify(keys.spotify);
-//var client = new Twitter(keys.twitter);
-
-
- 
-// var spotify = new Spotify({
-//   id: 
-//   secret: 
-// });
- 
-// spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-//   if (err) {
-//     return console.log('Error occurred: ' + err);
-//   }
- 
-// console.log(data); 
-// });
 
 
 
