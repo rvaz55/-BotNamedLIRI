@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/rvaz55/-BotNamedLIRI/issues"
   },
-  "homepage": "https://github.com/rvaz55/-BotNamedLIRI#readme"
+  "homepage": "https://github.com/rvaz55/-BotNamedLIRI#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "inquirer": "^6.0.0",
+    "node-spotify-api": "^1.0.7",
+    "twitter": "^1.7.1"
+  }
 }
