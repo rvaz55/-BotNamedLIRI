@@ -21,40 +21,14 @@ var client = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
   });
 
-
   //here i will create  prompt that asks which of the commands ou would like to run
-  inquirer
-  .prompt([
-    // Here we create a basic text prompt.
-    {
-      type: "input",
-      message: "What is your name?",
-      name: "username"
-    },
-    {
-      type: "confirm",
-      message: "Are you sure:",
-      name: "confirm",
-      default: true
-    },
-    // Here we create a basic password-protected text prompt.
-    {
-      type: "password",
-      message: "Set your password",
-      name: "password"
-    },
-    {
-      type: "confirm",
-      message: "Are you sure:",
-      name: "confirm",
-      default: true
-    },
+  inquirer.prompt([
     // Here we give the user a list to choose from.
     {
       type: "list",
-      message: "Which Pokemon do you choose?",
-      choices: ["Bulbasaur", "Squirtle", "Charmander"],
-      name: "pokemon"
+      message: "Hi, I'm LIRI! What command would you like to run?",
+      choices: ["my-tweets", "spotify-this-song", "movie-this", "do-what-it-says"],
+      name: "SelectedCommand"
     },
     // Here we ask the user to confirm.
     {
@@ -65,13 +39,30 @@ var client = new Twitter({
     }
   ])
   .then(function(inquirerResponse) {
-    // If the inquirerResponse confirms, we displays the inquirerResponse's username and pokemon from the answers.
+    // If the inquirerResponse confirms, we then use a switch
+    //statement to run the specified code
     if (inquirerResponse.confirm) {
-      console.log("\nWelcome " + inquirerResponse.username);
-      console.log("Your " + inquirerResponse.pokemon + " is ready for battle!\n");
+      console.log("Your " + inquirerResponse.SelectedCommand + " is ready for battle!\n");
+      switch (inquirerResponse.SelectedCommand) {
+
+        case 'my-tweets':
+            console.log('this section contains the code for the twitter selection');
+            break;
+        case 'spotify-this-song':
+            console.log('this section contains the code for the spotify selection');
+            break;
+        case 'movie-this':
+            console.log('this section contains the code for the omdb selection');
+            break;
+        case 'do-what-it-says' : 
+            console.log('this section contains the code for the do what is says selection');
+            break;
+        default:
+          console.log("Sorry I didn't get, please run this program again.");
+             }
     }
     else {
-      console.log("\nThat's okay " + inquirerResponse.username + ", come again when you are more sure.\n");
+      console.log("\nI see you've changed your mind!\n" + "\nNo worries, come back again when you have made a decision.\n");
     }
   });
 
