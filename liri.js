@@ -9,7 +9,7 @@ var Spotify = require('node-spotify-api');
 var inquirer = require("inquirer");
 
 
-//here i will create  prompt that asks which of the commands ou would like to run
+//here i will create  prompt that asks which of the commands the user would like to run
   inquirer.prompt([
     // Here we give the user a list to choose from.
     {
