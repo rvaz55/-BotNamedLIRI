@@ -30,7 +30,7 @@ var inquirer = require("inquirer");
     // If the inquirerResponse confirms, we then use a switch
     //statement to run the specified code
     if (inquirerResponse.confirm) {
-      console.log("Your " + inquirerResponse.SelectedCommand + " is ready for battle!\n");
+      console.log("Your " + inquirerResponse.SelectedCommand + " is ready for battle!");
       switch (inquirerResponse.SelectedCommand) {
 
         case 'my-tweets':
@@ -60,6 +60,19 @@ var inquirer = require("inquirer");
                 })
                
                 
+                    // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
+                    client.get('statuses/user_timeline', { screen_name: result.username, count: 20 }, function(error, tweets) {
+                      if (error != null) {
+                        console.log("Error " + JSON.stringify(error, null, 2))
+                      }
+                      else {
+                        
+                        let singleTweet = "\nHere is the index 0 of the tweet object: \n" + JSON.stringify(tweets[0].text, null, 2)
+                        console.log(singleTweet)
+                        console.log("the length of the tweets: " + tweets.length)
+                      }
+                    });
+                 
                 // client.get('search/tweets', {q: 'cats'}, function(error, tweets, response) {
                 // console.log(tweets);});
             })
