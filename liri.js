@@ -30,7 +30,7 @@ var inquirer = require("inquirer");
     // If the inquirerResponse confirms, we then use a switch
     //statement to run the specified code
     if (inquirerResponse.confirm) {
-      console.log("You selected " + inquirerResponse.SelectedCommand );
+      console.log("You selected: " + inquirerResponse.SelectedCommand );
       switch (inquirerResponse.SelectedCommand) {
 
         case 'my-tweets':
@@ -74,20 +74,52 @@ var inquirer = require("inquirer");
             break;
         
         case 'spotify-this-song':
-            console.log('this section contains the code for the spotify selection');
-            var spotify = new Spotify({
-                id: process.env.SPOTIFY_ID,
-                secret: process.env.SPOTIFY_SECRET
-              });
-               
-              spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-                if (err) {
-                  return console.log('Error occurred: ' + err);
-                }
-               
-             console.log(data); 
-              });
+        inquirer.prompt([ 
+          { type: "input",
+            message: "What song should I look up?",
+            name: "songRequest"
+            }
+            ,{ type: "confirm",
+            //the refrence to the songrequest title isn't working fix it...
+            message: `Please confirm your selection?`,
+            name: "confirm",
+            default: true}
+        ]).then(function(inquirerResponse){ 
+          
+          if (inquirerResponse.confirm) {
+        
+            let spotify = new Spotify({
+            id: process.env.SPOTIFY_ID,
+            secret: process.env.SPOTIFY_SECRET});
+            
 
+            spotify.request(`https://api.spotify.com/v1/search?q=${inquirerResponse.songRequest}&type=track&limit=2`).then(function(data) {
+              console.log(data);
+              console.log("tracks: " + data.tracks.items )
+              console.log("tracks: " + JSON.stringify(data.tracks.items, null, 20 ))
+            })
+            .catch(function(err) {
+              console.error('Error occurred: ' + err); 
+            });
+             // function(err, spotifyObject) {
+              // if (err = null) {
+              //   return console.error('Error occurred: ' + err);
+              // } else {
+                  //console.log(spotifyObject.tracks.href)
+               
+                  //console.log("n\ this is the href and it works: \n" + JSON.stringify(spotifyObject.tracks.href,null, 2))
+                 //  console.log("n\ this is the href: \n" + JSON.stringify(spotifyObject.tracks.artists,null, 2))
+                   // console.log(spotifyObject)
+                  //console.log("\nthis is the items: \n" + JSON.stringify(Object.values(spotifyObject.tracks.items[0].album[0]),null, 2))
+                  //console.log("this is the spotifyObject: " + spotifyObject)
+                  //console.log("this is the attempt to get items[0].album: " + spotifyObject.tracks.items[0].album.val)
+                  
+                 // }
+                 //});
+            
+          }
+  
+        })         
             break;
         case 'movie-this':
             console.log('this section contains the code for the omdb selection');
