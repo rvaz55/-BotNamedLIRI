@@ -117,6 +117,8 @@ var inquirer = require("inquirer");
         })         
             break;
         case 'movie-this':
+
+        //Here i have to write a vanilla javascript 'ajax- get' request to the omdb api
             console.log('this section contains the code for the omdb selection');
             function displayMovieInfo() {
 
@@ -134,8 +136,15 @@ var inquirer = require("inquirer");
             displayMovieInfo();
             break;
         case 'do-what-it-says' : 
-            console.log('this section contains the code for the do what is says selection');
-            break;
+            
+              console.log('this section contains the code for the do what is says selection');
+            //need to program the liri.js file to traverse to the random.txt file to 
+            //grab strings then parse the string(s) into js object(s)
+            //from there i could use the previously made functions for the commands 
+            //and then i would pass into those functions the StringsIntpObjects objects as 
+            //parameters which can then be used to trigger those functions & console.log 
+            //those responses
+              break;
         default:
           console.log("Sorry I didn't get, please run this program again.");
              }
