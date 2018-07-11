@@ -118,6 +118,20 @@ var inquirer = require("inquirer");
             break;
         case 'movie-this':
             console.log('this section contains the code for the omdb selection');
+            function displayMovieInfo() {
+
+              var movie = "Halloween";
+              var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+      
+              // Creating an AJAX call for the specific movie button being clicked
+              $.ajax({
+                url: queryURL,
+                method: "GET"
+              }).then(function(response) {
+                console.log(response)
+              })
+            }
+            displayMovieInfo();
             break;
         case 'do-what-it-says' : 
             console.log('this section contains the code for the do what is says selection');
