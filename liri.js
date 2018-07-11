@@ -94,31 +94,26 @@ var inquirer = require("inquirer");
             
 
             spotify.request(`https://api.spotify.com/v1/search?q=${inquirerResponse.songRequest}&type=track&limit=2`).then(function(data) {
-              console.log(data);
-              console.log("tracks: " + data.tracks.items )
-              console.log("tracks: " + JSON.stringify(data.tracks.items, null, 20 ))
+              //console.log(data);
+              if (inquirerResponse.songRequest != null) {
+              console.log("Artist(s): " + JSON.stringify(data.tracks.items[0].artists[0].name, null, 20 ))
+              console.log("Song: " + JSON.stringify(data.tracks.items[0].name, null, 20 ))
+              console.log("Preview URL: " + data.tracks.items[0].preview_url )
+              console.log("Album: " + JSON.stringify(data.tracks.items[0].album.name, null, 20 ))
+            } else {
+              console.log("it was null")
+
+            }
             })
             .catch(function(err) {
-              console.error('Error occurred: ' + err); 
-            });
-             // function(err, spotifyObject) {
-              // if (err = null) {
-              //   return console.error('Error occurred: ' + err);
-              // } else {
-                  //console.log(spotifyObject.tracks.href)
-               
-                  //console.log("n\ this is the href and it works: \n" + JSON.stringify(spotifyObject.tracks.href,null, 2))
-                 //  console.log("n\ this is the href: \n" + JSON.stringify(spotifyObject.tracks.artists,null, 2))
-                   // console.log(spotifyObject)
-                  //console.log("\nthis is the items: \n" + JSON.stringify(Object.values(spotifyObject.tracks.items[0].album[0]),null, 2))
-                  //console.log("this is the spotifyObject: " + spotifyObject)
-                  //console.log("this is the attempt to get items[0].album: " + spotifyObject.tracks.items[0].album.val)
-                  
-                 // }
-                 //});
-            
+              let defaultSong = {
+                "Artist(s)": "Ace of Base",
+                "Song": "The Sign",
+                "Preview URL": "null",
+                "Album": "Happy Nation"}
+              console.log(defaultSong); 
+            })
           }
-  
         })         
             break;
         case 'movie-this':
