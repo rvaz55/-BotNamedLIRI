@@ -7,6 +7,7 @@ require("dotenv").config();
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var inquirer = require("inquirer");
+var jquery = require('jquery');
 
 
 //here i will create  prompt that asks which of the commands the user would like to run
